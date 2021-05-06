@@ -2,13 +2,16 @@ package com.nowcoder.community;
 
 
 import com.nowcoder.community.dao.DiscussPostMapper;
+import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
 import com.nowcoder.community.entity.DiscussPost;
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import sun.security.krb5.internal.Ticket;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +25,9 @@ public class MapperTests {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void selectUser(){
@@ -71,6 +77,28 @@ public class MapperTests {
         System.out.println(rows);
 
 
+    }
+
+
+    @Test
+    public void testInsertLoginTicket(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(111);
+        loginTicket.setTicket("asdf");
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 * 10));
+        loginTicket.setStatus(0);
+
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void testSelectLoginTicket(){
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("asdf");
+        System.out.println(loginTicket);
+
+        loginTicketMapper.updateStatus("asdf", 0);
+        loginTicket = loginTicketMapper.selectByTicket("asdf");
+        System.out.println(loginTicket);
     }
 
 }
