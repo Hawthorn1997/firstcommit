@@ -33,10 +33,10 @@ public class HomeController implements CommunityConstant {
     public String getIndexPage(Model model, Page page){
         //方法调用前，SpringMVC会自动实例化Model和Page，将Page注入给Model
 
-        page.setRows(discussPostService.selectDiscussPostRows(0));
+        page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index");
 
-        List<DiscussPost> list = discussPostService.findDisscussPosts(0, page.getOffset(), page.getLimit());
+        List<DiscussPost> list = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit());
         List<Map<String, Object>> discussPosts = new ArrayList<>();
         if(list != null){
             for(DiscussPost post : list){
@@ -61,5 +61,11 @@ public class HomeController implements CommunityConstant {
     @RequestMapping(path = "/error", method = RequestMethod.GET)
     public String getErrorPage(){
         return "/error/500";
+    }
+
+
+    @RequestMapping(path = "/denied", method = RequestMethod.GET)
+    public String getDeniedPage(){
+        return "/error/404";
     }
 }

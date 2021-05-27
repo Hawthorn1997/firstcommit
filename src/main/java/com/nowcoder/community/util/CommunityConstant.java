@@ -24,4 +24,23 @@ public interface CommunityConstant {
     //用户
     int ENTITY_TYPE_USER = 3;
 
+    //kafka事件的主题
+    //评论
+    String TOPIC_COMMENT = "comment";
+    //点赞
+    String TOPIC_LIKE = "like";
+    //关注
+    String TOPIC_FOLLOW = "follow";
+
+
+    //系统用户id
+    int SYSTEM_USER_ID = 1;
+
+    //普通用户权限
+    String AUTHORITY_USER = "user";
+    //管理员
+    String AUTHORITY_ADMIN = "admin";
+    //版主
+    String AUTHORITY_MODERATOR = "moderator";
+
 }
